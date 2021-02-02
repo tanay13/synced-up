@@ -1,0 +1,24 @@
+{
+  "name": "syncedup",
+  "version": "1.0.0",
+  "description": "Watch synced video",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanay13/synced-up.git"
+  },
+  "author": "Tanay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tanay13/synced-up/issues"
+  },
+  "homepage": "https://github.com/tanay13/synced-up#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "path": "^0.12.7",
+    "socket.io": "^3.1.0"
+  }
+}
