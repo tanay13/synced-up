@@ -5,6 +5,7 @@ const socketIO = require("socket.io");
 const app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
+const port = process.env.PORT || 3000
 
 app.set("view engine","ejs");
 //path.join() method joins the specified path segments into one path
@@ -33,6 +34,6 @@ app.get('/',(req,res)=>{
 
 
 
-server.listen(3000,()=>{
+server.listen(port,()=>{
     console.log("Server running");
 })
