@@ -3,6 +3,8 @@ var user = prompt("Enter your name");
 var video = document.querySelector(".video");
 var bar = document.querySelector(".orange-bar");
 var juice = document.querySelector(".orange-juice");
+var notifDiv = document.getElementById("notification");
+var sync = document.getElementById('sync')
 var btn = document.getElementById("play");
 let socket = io();
 
@@ -16,40 +18,80 @@ socket.on('change',(param)=>{
     if(param.className === "pause")
     {
         video.play();
-        alert(param.user+" played")
+        var s = param.user+" played"
+        var li = document.createElement('li')
+        var textNode = document.createTextNode(s)
+        li.appendChild(textNode)
+        notifDiv.appendChild(li)
     }
     else
     {
         video.pause()
-        alert(param.user+" paused")
+        var s = param.user+" paused"
+        var li = document.createElement('li')
+        var textNode = document.createTextNode(s)
+        li.appendChild(textNode)
+        notifDiv.appendChild(li)
+
     };
 })
 
-function togglePlay(){
+// function togglePlay(){
+//     if(video.paused)
+//     {
+//         socket.emit('toggle',{
+//             nameofclass:"pause",
+//             user:user
+//         })
+//         btn.className = "pause";
+//         video.play()
+//     }
+//     else{
+//         socket.emit('toggle',{
+//             nameofclass:"play",
+//             user:user
+//         })
+//         btn.className = "play";
+//         video.pause();
+//     }
+
+// }
+
+btn.addEventListener('click',()=>{
+
     if(video.paused)
     {
         socket.emit('toggle',{
             nameofclass:"pause",
             user:user
         })
-        btn.className = "pause";
-        video.play()
+        // btn.className = "pause";
+        // video.play()
     }
     else{
         socket.emit('toggle',{
             nameofclass:"play",
             user:user
         })
-        btn.className = "play";
-        video.pause();
+        // btn.className = "play";
+        // video.pause();
     }
 
-}
+    
+})
 
-btn.onclick = function()
-{
-   togglePlay();
-}
+sync.addEventListener('click',()=>{
+    var currTime = video.currentTime
+    socket.emit('sync',{
+        currTime : currTime
+    })
+})
+
+socket.on('synctime',(time)=>{
+    video.currentTime = time.syncTime
+
+})
+
 video.addEventListener('timeupdate', function(){
     var juicePos  = video.currentTime / video.duration ;
     juice.style.width = juicePos*100 + "%";

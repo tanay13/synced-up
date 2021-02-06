@@ -18,14 +18,21 @@ app.set("view engine","ejs");
 
 app.get('/',(req,res)=>{
     res.render("index")
-    io.on('connection',(socket)=>{
-        console.log("Connected successfully");
     
-        socket.on('toggle',(classname)=>{
-            io.emit('change',{
-                className:classname.nameofclass,
-                user:classname.user
-            })
+})
+
+io.on('connection',(socket)=>{
+    console.log("Connected successfully");
+
+    socket.on('toggle',(classname)=>{
+        io.emit('change',{
+            className:classname.nameofclass,
+            user:classname.user
+        })
+    })
+    socket.on('sync',(time)=>{
+        io.emit('synctime',{
+            syncTime:time.currTime
         })
     })
 })
