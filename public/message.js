@@ -7,7 +7,7 @@ socket.on('newMsg',(msg)=>{
     console.log("new message",msg);
     let li = document.createElement('li');
     li.innerText = `${msg.from}: ${msg.text}`
-    document.querySelector('body').appendChild(li);
+    document.getElementById('container1').appendChild(li);
 })
 
 
