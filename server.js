@@ -35,6 +35,21 @@ io.on('connection',(socket)=>{
             syncTime:time.currTime
         })
     })
+
+    socket.on('newUser',(user)=>{
+        socket.broadcast.emit('newMsg',{
+            from:"Admin",
+            text:user.user+" joined"
+        })
+    })
+
+    socket.on('createmsg',(msg)=>{
+        io.emit('newMsg',{
+            from:msg.from,
+            text:msg.text
+        })
+            
+    })
 })
 
 
