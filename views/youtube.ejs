@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synced-up</title>
+</head>
+<body>
+    <iframe id="iframe" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+    <script>
+        var url = prompt("Enter the youtube link")
+        
+        var URL = url.slice(17)
+        console.log(URL)
+        document.getElementById("iframe").src = "https://www.youtube.com/embed/"+URL
+
+
+    </script>
+</body>
+</html>
