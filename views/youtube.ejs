@@ -6,16 +6,27 @@
     <title>Synced-up</title>
 </head>
 <body>
-    <iframe id="iframe" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+    <div class="input-group mb-3">
+        <form id="search-box" action="/youtube" method="POST">
+            <input name="search" type="text" class="form-control" placeholder="Youtube Link" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <button type="submit" class="input-group-text" id="basic-addon2">Search</button>
+        </form>
+        
+    </div>
+    <iframe id="iframe" width="560" height="315" src="https://www.youtube.com/embed/pEeSRHCIVDg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <button class="yt">CLICK ME</button>
 
     <script>
-        var url = prompt("Enter the youtube link")
         
-        var linkID = url.slice(17)
-        console.log(linkID)
-        document.getElementById("iframe").src = "https://www.youtube.com/embed/"+linkID
-
+        const form = document.getElementById('search-box')
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault()
+            var url = form.search.value;
+            console.log(url)
+            var linkID = url.slice(17)
+            document.getElementById("iframe").src = "https://www.youtube.com/embed/"+linkID
+            form.search.value = " ";
+        })
 
     </script>
 </body>

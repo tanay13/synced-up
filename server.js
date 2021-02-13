@@ -29,6 +29,13 @@ app.get('/youtube',(req,res)=>{
     res.render("youtube")
 })
 
+app.post('/youtube',(req,res)=>{
+
+    var id1 = req.search;
+
+    res.render("youtube",id1)
+})
+
 io.on('connection',(socket)=>{
     console.log("Connected successfully");
 
