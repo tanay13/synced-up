@@ -66,9 +66,13 @@
         var btn = document.getElementById('yt')
         var state = document.getElementById('state')
         done = false;
+        
+        var dur = 0
+
+
         btn.addEventListener('click',()=>{
             if(done){
-                player.stopVideo()
+                player.pauseVideo()
                 state.innerHTML = "PLAY"
                 done = false
             }
