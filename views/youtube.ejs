@@ -16,7 +16,7 @@
         
     </div> -->
     <!-- <iframe id="iframe" width="560" height="315" src=" " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-    <button id="yt">CLICK ME</button>
+    <button id="yt"><span id="state">PLAY</span></button>
 
     <script>
         
@@ -50,7 +50,7 @@
             videoId: 'M7lc1UVf-VE',
             events: {
             // 'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+            // 'onStateChange': onPlayerStateChange
             }
         });
         }
@@ -59,21 +59,25 @@
         function onPlayerReady(event) {
         event.target.playVideo();
         }
-
-        // 5. The API calls this function when the player's state changes.
-        //    The function indicates that when playing a video (state=1),
-        //    the player should play for six seconds and then stop.
-        var done = false;
-        function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-            setTimeout(stopVideo, 6000);
-            done = true;
-            }
-        }
         function stopVideo() {
             player.stopVideo();
         }
 
+        var btn = document.getElementById('yt')
+        var state = document.getElementById('state')
+        done = false;
+        btn.addEventListener('click',()=>{
+            if(done){
+                player.stopVideo()
+                state.innerHTML = "PLAY"
+                done = false
+            }
+            else{
+                player.playVideo()
+                state.innerHTML = "PAUSE"
+                done = true
+            }
+        })
         
 
     </script>
