@@ -5,6 +5,10 @@ const socketIO = require("socket.io");
 const app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
+
+const youtubeRoute = require('./routes/youtube')
+const customRoute = require('./routes/custom')
+
 const port = process.env.PORT || 3000
 
 app.set("view engine","ejs");
@@ -15,25 +19,11 @@ app.use(express.static(publicPath));
 
 app.set("view engine","ejs");
 
-
+app.use('/youtube',youtubeRoute)
+app.use('/custom',customRoute)
 app.get('/',(req,res)=>{
     res.render("landing")
     
-})
-
-app.get('/custom',(req,res)=>{
-    res.render("index")
-})
-
-app.get('/youtube',(req,res)=>{
-    res.render("youtube")
-})
-
-app.post('/youtube',(req,res)=>{
-
-    var id1 = req.search;
-
-    res.render("youtube",id1)
 })
 
 io.on('connection',(socket)=>{
@@ -66,8 +56,6 @@ io.on('connection',(socket)=>{
             
     })
 })
-
-
 
 
 

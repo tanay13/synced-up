@@ -26,6 +26,9 @@
             height: '390',
             width: '640',
             videoId: 'M7lc1UVf-VE',
+            playerVars : {
+                controls : 0
+            },
             events: {
             // 'onReady': onPlayerReady,
             // 'onStateChange': onPlayerStateChange
