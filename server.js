@@ -35,6 +35,12 @@ io.on('connection',(socket)=>{
             user:classname.user
         })
     })
+
+    socket.on('yevent',(e)=>{
+        io.emit('change',{
+            event : e
+        })
+    })
     socket.on('sync',(time)=>{
         io.emit('synctime',{
             syncTime:time.currTime

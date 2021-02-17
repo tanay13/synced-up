@@ -13,13 +13,10 @@
 
         // 2. This code loads the IFrame Player API code asynchronously.
         var tag = document.createElement('script');
-
+        let socket = io();
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        // 3. This function creates an <iframe> (and YouTube player)
-        //    after the API code downloads.
         var player;
         function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
@@ -50,16 +47,36 @@
         
         var dur = 0
 
+        socket.on('change',(event)=>{
+            if(event.e === 'play')
+            {
+                state.innerHTML = "PAUSE"
+                player.playVideo()
+            }
+            else{
+                state.innerHTML = "PLAY"
+                player.pauseVideo()
+            }
+            
+        })
+
+
 
         btn.addEventListener('click',()=>{
             if(done){
                 player.pauseVideo()
                 state.innerHTML = "PLAY"
+                socket.emit('yevent',{
+                    event : "pause"  
+                })
                 done = false
             }
             else{
                 player.playVideo()
                 state.innerHTML = "PAUSE"
+                socket.emit('yevent',{
+                    event : "play"  
+                })
                 done = true
             }
         })
