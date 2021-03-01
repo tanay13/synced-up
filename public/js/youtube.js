@@ -7,7 +7,7 @@ subBtn.addEventListener('click',(e)=>{
     e.preventDefault()
     var url = search.value;
     var linkID = url.slice(17)
-    console.log("clicked")
+    player.loadVideoById(linkID);
     search.value = " ";
 })
 console.log(linkID)
@@ -25,7 +25,7 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
     height: '390',
     width: '640',
-    videoId: linkID ,
+    videoId: 'M7lc1UVf-VE' ,
     playerVars : {
         controls : 0
     },
