@@ -1,25 +1,44 @@
 const search = document.getElementById('link')
 const subBtn = document.getElementById('btn')
-
-// var linkID = 'M7lc1UVf-VE'
+const clickme = document.getElementById('testing')
+let socket = io();
+var player
 var linkID
+
+clickme.addEventListener('click',()=>{
+    socket.emit('test',{
+        msg: "Hello"
+    })
+})
+
+
 subBtn.addEventListener('click',(e)=>{
     e.preventDefault()
     var url = search.value;
     var linkID = url.slice(17)
     player.loadVideoById(linkID);
+    socket.emit('vchange',{
+        linkID:linkID
+    })
     search.value = " ";
 })
-console.log(linkID)
+
 
 // 2. This code loads the IFrame Player API code asynchronously.
 var tag = document.createElement('script');
-let socket = io();
+
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-var player;
+
+
+//listening to video change
+socket.on('videoChange',(e)=>{
+    console.log("event caught")
+    player.loadVideoById(e.videoId);
+})
+
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
@@ -50,18 +69,20 @@ done = false;
 
 var dur = 0
 
-socket.on('change',(event)=>{
-    if(event.e === 'play')
-    {
-        state.innerHTML = "PAUSE"
-        player.playVideo()
-    }
-    else{
-        state.innerHTML = "PLAY"
-        player.pauseVideo()
-    }
+// socket.on('change',(event)=>{
+//     if(event.e === 'play')
+//     {
+//         state.innerHTML = "PAUSE"
+//         player.playVideo()
+//         console.log('played')
+//     }
+//     else{
+//         state.innerHTML = "PLAY"
+//         player.pauseVideo()
+//         console.log("Paused")
+//     }
     
-})
+// })
 
 
 

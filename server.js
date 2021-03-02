@@ -11,6 +11,8 @@ const customRoute = require('./routes/custom')
 
 const port = process.env.PORT || 3000
 
+app.set('socketio', io);
+
 app.set("view engine","ejs");
 //path.join() method joins the specified path segments into one path
 const publicPath = path.join(__dirname,"/public")
@@ -26,42 +28,6 @@ app.get('/',(req,res)=>{
     
 })
 
-io.on('connection',(socket)=>{
-    console.log("Connected successfully");
-
-    socket.on('toggle',(classname)=>{
-        io.emit('change',{
-            className:classname.nameofclass,
-            user:classname.user
-        })
-    })
-
-    socket.on('yevent',(e)=>{
-        io.emit('change',{
-            event : e
-        })
-    })
-    socket.on('sync',(time)=>{
-        io.emit('synctime',{
-            syncTime:time.currTime
-        })
-    })
-
-    socket.on('newUser',(user)=>{
-        socket.broadcast.emit('newMsg',{
-            from:"Admin",
-            text:user.user+" joined"
-        })
-    })
-
-    socket.on('createmsg',(msg)=>{
-        io.emit('newMsg',{
-            from:msg.from,
-            text:msg.text
-        })
-            
-    })
-})
 
 
 
