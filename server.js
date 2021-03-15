@@ -6,12 +6,11 @@ const app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
 
-const youtubeRoute = require('./routes/youtube')
-const customRoute = require('./routes/custom')
+const youtubeRoute = require('./routes/youtube')(app,io);
+const customRoute = require('./routes/custom');
 
 const port = process.env.PORT || 3000
 
-app.set('socketio', io);
 
 app.set("view engine","ejs");
 //path.join() method joins the specified path segments into one path
