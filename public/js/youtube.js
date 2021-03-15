@@ -69,20 +69,21 @@ done = false;
 
 var dur = 0
 
-// socket.on('change',(event)=>{
-//     if(event.e === 'play')
-//     {
-//         state.innerHTML = "PAUSE"
-//         player.playVideo()
-//         console.log('played')
-//     }
-//     else{
-//         state.innerHTML = "PLAY"
-//         player.pauseVideo()
-//         console.log("Paused")
-//     }
+socket.on('change',(event)=>{
+    console.log(event.message)
+    if(event.videoState === 'play')
+    {
+        state.innerHTML = "PAUSE"
+        player.playVideo()
+        console.log('played')
+    }
+    else{
+        state.innerHTML = "PLAY"
+        player.pauseVideo()
+        console.log("Paused")
+    }
     
-// })
+})
 
 
 

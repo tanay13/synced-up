@@ -19,6 +19,13 @@ module.exports = function(app,io)
                 videoId: event.linkID
             })
         })
+
+        socket.on('yevent',(e)=>{
+            socket.broadcast.emit('change',{
+                videoState : e.event,
+                message:"Hello"
+            })
+        })
     })
     return router;
     
