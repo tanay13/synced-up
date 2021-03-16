@@ -22,8 +22,13 @@ module.exports = function(app,io)
 
         socket.on('yevent',(e)=>{
             socket.broadcast.emit('change',{
-                videoState : e.event,
-                message:"Hello"
+                videoState : e.event
+            })
+        })
+
+        socket.on('sync',(event)=>{
+            io.emit('time',{
+                time : event.videoDur
             })
         })
     })

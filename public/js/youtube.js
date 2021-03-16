@@ -1,15 +1,13 @@
 const search = document.getElementById('link')
 const subBtn = document.getElementById('btn')
-const clickme = document.getElementById('testing')
+const sync = document.getElementById('sync')
+var btn = document.getElementById('yt')
+var state = document.getElementById('state')
+
+
 let socket = io();
 var player
 var linkID
-
-clickme.addEventListener('click',()=>{
-    socket.emit('test',{
-        msg: "Hello"
-    })
-})
 
 
 subBtn.addEventListener('click',(e)=>{
@@ -63,24 +61,22 @@ function stopVideo() {
     player.stopVideo();
 }
 
-var btn = document.getElementById('yt')
-var state = document.getElementById('state')
+
 done = false;
 
 var dur = 0
 
 socket.on('change',(event)=>{
-    console.log(event.message)
     if(event.videoState === 'play')
     {
         state.innerHTML = "PAUSE"
         player.playVideo()
-        console.log('played')
+        done = true
     }
     else{
         state.innerHTML = "PLAY"
         player.pauseVideo()
-        console.log("Paused")
+        done = false
     }
     
 })
@@ -106,3 +102,14 @@ btn.addEventListener('click',()=>{
     }
 })
 
+//event for clicking on sync button
+sync.addEventListener('click',()=>{
+    socket.emit('sync',{
+        videoDur:player.getDuration()
+    })
+})
+
+//listening to time event from server side
+socket.on('time',(event)=>{
+    player.seekTo(event.time,false)
+})
