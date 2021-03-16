@@ -28,6 +28,11 @@ app.get('/',(req,res)=>{
     
 })
 
+app.get('/local',(req,res)=>{
+  res.render('localVideo')
+})
+
+
 app.get("/video", function (req, res) {
     // Ensure there is a range given for the video
     const range = req.headers.range;
@@ -36,8 +41,8 @@ app.get("/video", function (req, res) {
     }
   
     // get video stats (about 61MB)
-    const videoPath = "bigbuck.mp4";
-    const videoSize = fs.statSync("bigbuck.mp4").size;
+    const videoPath = "./public/DoorBotV!.mp4";
+    const videoSize = fs.statSync("./public/DoorBotV!.mp4").size;
   
     // Parse Range
     // Example: "bytes=32324-"
