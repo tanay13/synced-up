@@ -32,6 +32,11 @@ app.get('/local',(req,res)=>{
   res.render('localVideo')
 })
 
+app.get('/watch',(req,res)=>{
+  res.render('watch')
+})
+
+
 
 app.get("/video", function (req, res) {
     // Ensure there is a range given for the video
@@ -58,10 +63,11 @@ app.get("/video", function (req, res) {
       "Content-Length": contentLength,
       "Content-Type": "video/mp4",
     };
-  
+    
     // HTTP Status 206 for Partial Content
     res.writeHead(206, headers);
-  
+    
+
     // create video read stream for this particular chunk
     const videoStream = fs.createReadStream(videoPath, { start, end });
   
