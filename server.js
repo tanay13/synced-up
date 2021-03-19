@@ -3,12 +3,13 @@ const http = require("http");
 const path = require("path");
 const socketIO = require("socket.io");
 const fs = require("fs");
+const formidable = require('formidable')
 const app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
 
 const youtubeRoute = require('./routes/youtube')(app,io);
-const customRoute = require('./routes/custom');
+const customRoute = require('./routes/custom')(app,io);
 
 const port = process.env.PORT || 3000
 
@@ -28,6 +29,25 @@ app.get('/',(req,res)=>{
     
 })
 
+app.post('/', function (req, res){
+  var form = new formidable.IncomingForm();
+
+  form.parse(req);
+
+  form.on('fileBegin', function (name, file){
+      file.path = __dirname + '/uploads/' + file.name;
+  });
+
+  form.on('file', function (name, file){
+      console.log('Uploaded ' + file.name);
+  });
+
+  res.render('landing');
+});
+
+
+
+
 app.get('/local',(req,res)=>{
   res.render('localVideo')
 })
@@ -46,8 +66,8 @@ app.get("/video", function (req, res) {
     }
   
     // get video stats (about 61MB)
-    const videoPath = "./public/DoorBotV!.mp4";
-    const videoSize = fs.statSync("./public/DoorBotV!.mp4").size;
+    const videoPath = req.videoPath||"C:/Users/TANAY RAJ/Downloads/DoorBotV!.mp4";
+    const videoSize = fs.statSync(videoPath).size;
   
     // Parse Range
     // Example: "bytes=32324-"
