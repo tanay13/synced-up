@@ -1,10 +1,20 @@
 
-module.exports = function(app,io)
+module.exports = function(app,io,publicPath)
 {
     const router = require('express').Router()
+    
+    const fs = require('fs')
+
+
 
     app.get('/custom',(req,res)=>{
-        res.render("index")
+        const dir = publicPath+"/uploads";
+        const files = fs.readdirSync(dir)
+        var fileName = []
+        for (const file of files) {
+        fileName.push(file)
+        }
+        res.render("index",{fileName})
     })
  
     io.on('connection',(socket)=>{
@@ -14,6 +24,12 @@ module.exports = function(app,io)
             io.emit('change',{
                 className:classname.nameofclass,
                 user:classname.user
+            })
+        })
+
+        socket.on('videoChange',(file)=>{
+            io.emit('changeVideo',{
+                fileName : file.fileName
             })
         })
     

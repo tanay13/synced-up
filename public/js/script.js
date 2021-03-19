@@ -9,6 +9,18 @@ var btn = document.getElementById("play");
 let socket = io();
 
 
+function playVideo(fileName)
+{
+    socket.emit('videoChange',{
+        fileName: fileName
+    })
+}
+
+socket.on('changeVideo',(file)=>{
+    document.getElementById('videoC').src = "uploads/"+file.fileName;
+})
+
+
 socket.on('connect',()=>{
     console.log("CONNECTED!!!!!")
 })

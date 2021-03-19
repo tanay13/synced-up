@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <div class="c-video">
-            <video class="video"  src="/sample-mp4-file.mp4" ></video>
+            <video class="video" id="videoC" src="/sample-mp4-file.mp4" ></video>
             <div class="controls">
                 <div class="orange-bar">
                     <div class="orange-juice"></div>
@@ -33,7 +33,20 @@
         </form>
 
     </div>
-  
+    
+
+    </div>
+
+    <div>
+        
+
+            <% for (var i = 0; i < fileName.length; i++) { %>
+                <li> <%= fileName[i] %> </li>
+                <button onclick="playVideo('<%= fileName[i] %>')">PLAY</button>
+            <% } %>
+        
+
+
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/script.js"></script>

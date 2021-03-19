@@ -8,8 +8,7 @@ const app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
 
-const youtubeRoute = require('./routes/youtube')(app,io);
-const customRoute = require('./routes/custom')(app,io);
+
 
 const port = process.env.PORT || 3000
 
@@ -19,6 +18,9 @@ app.set("view engine","ejs");
 const publicPath = path.join(__dirname,"/public")
 //To serve static files such as images, CSS files, and JavaScript files
 app.use(express.static(publicPath));
+
+const youtubeRoute = require('./routes/youtube')(app,io);
+const customRoute = require('./routes/custom')(app,io,publicPath);
 
 app.set("view engine","ejs");
 
