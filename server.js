@@ -1,13 +1,20 @@
+if(process.env.NODE_ENV != "production")
+{
+  require('dotenv').config();
+}
+
 const express = require('express')
 const http = require("http");
 const path = require("path");
 const socketIO = require("socket.io");
 const fs = require("fs");
-const formidable = require('formidable')
 const app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
 
+//multer is a middleware used to parse multipart/form-data
+const multer = require('multer') 
+const upload = multer({dest:'uploads/'})
 
 
 const port = process.env.PORT || 3000
@@ -31,20 +38,8 @@ app.get('/',(req,res)=>{
     
 })
 
-app.post('/', function (req, res){
-  var form = new formidable.IncomingForm();
-
-  form.parse(req);
-
-  form.on('fileBegin', function (name, file){
-      file.path = __dirname + '/public/uploads/' + file.name;
-  });
-
-  form.on('file', function (name, file){
-      console.log('Uploaded ' + file.name);
-  });
-
-  res.render('landing');
+app.post('/', upload.single('video') ,function (req, res){
+    res.send(req.file)
 });
 
 
