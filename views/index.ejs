@@ -40,9 +40,9 @@
     <div>
         
 
-            <% for (var i = 0; i < fileName.length; i++) { %>
-                <li> <%= fileName[i] %> </li>
-                <button onclick="playVideo('<%= fileName[i] %>')">PLAY</button>
+            <% for (var i = 0; i < foundvideo.length; i++) { %>
+                <li> <%= foundvideo[i].originalname %> </li>
+                <button onclick="playVideo('<%= foundvideo[i] %>')">PLAY</button>
             <% } %>
         
 
