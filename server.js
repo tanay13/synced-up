@@ -47,10 +47,9 @@ app.get('/',(req,res)=>{
 
 app.post('/', upload.single('video') ,async (req, res)=>{
   
-
-  console.log(req.file)
-
   const video = new Video();
+  video.originalname = req.file.originalname;
+  video.size = req.file.size;
   video.url = req.file.path;
   video.filename = req.file.filename;
   await video.save();
