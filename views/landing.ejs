@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Synced-up</title>
 </head>
 <body>
@@ -10,11 +11,27 @@
     <a href="/youtube">youtube</a>
 
 
-    <form action="/" enctype="multipart/form-data" method="POST" >
+  <form action="/" enctype="multipart/form-data" method="POST" >
         
-        <input type="file" name="video" multiple>
-        <input type="submit" value="upload">
+        <div class="input-group mb-3" >
+        <input type="file" name="video" class="form-control" id="inputGroupFile02" required>
+        <input type="submit" class="input-group-text" value="Upload"></input>
+        </div>
 
     </form>
+
+    
+    <script>
+
+        // const file = document.getElementById('inputGroupFile02')
+        
+        // file.onchange = function(){
+        //     const name = this.value.replace(/.*[\/\\]/, '')
+        //     console.log(name)
+        // }
+
+    </script>
+
+
 </body>
 </html>

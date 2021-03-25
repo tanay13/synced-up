@@ -11,11 +11,18 @@ const fs = require("fs");
 const app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
+const Video = require('./models/Video')
 
 //multer is a middleware used to parse multipart/form-data
 const multer = require('multer') 
-const upload = multer({dest:'uploads/'})
 
+const {storage} = require('./cloudinary')
+
+
+const upload = multer({storage});
+
+
+require("./mongooseConnection")
 
 const port = process.env.PORT || 3000
 
@@ -38,8 +45,18 @@ app.get('/',(req,res)=>{
     
 })
 
-app.post('/', upload.single('video') ,function (req, res){
-    res.send(req.file)
+app.post('/', upload.single('video') ,async (req, res)=>{
+  
+
+  console.log(req.file)
+
+  const video = new Video();
+  video.url = req.file.path;
+  video.filename = req.file.filename;
+  await video.save();
+
+  res.redirect('/');
+
 });
 
 
