@@ -3,40 +3,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/landing.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <title>Synced-up</title>
 </head>
-
-<style>
-
-    #progress-bar{
-        height: 50px;
-        width: 250px;
-    }
-
-    .bar{
-        height: 100%;
-        width: 0%;
-        background: lightblue;
-        display: flex;
-        align-items: center;
-        transition: width 0.25s;
-    }
-
-    .percent{
-        margin-top: 20px;
-        margin-left: 10px;
-        font-weight: bold;
-    }
-
-
-
-
-
-
-
-</style>
 
 <body>
     <a href="/custom">Custom</a>
@@ -60,40 +31,7 @@
         
     </div>
 
-    
-    <script>
-
-        const upload = document.getElementById('uploadForm')
-        const inpFile = document.getElementById('inputGroupFile02')
-        const bar = document.querySelector('#progress-bar > .bar')
-        const percent = bar.querySelector('.percent')
-
-        upload.addEventListener('submit',uploadFile)
-
-        function uploadFile(e){
-            e.preventDefault();
-
-            const xhr = new XMLHttpRequest();
-
-            xhr.open('POST',"/");
-            xhr.upload.addEventListener('progress',e=>{
-              const percent_upload = e.lengthComputable?(e.loaded/e.total)*100 : 0;
-              
-              bar.style.width = percent_upload.toFixed(2)+"%";
-              percent.textContent = percent_upload.toFixed(2)+"%";
-
-
-            })
-
-            // no need of setting content-type to multipart/form-data.
-            xhr.send(new FormData(upload))
-
-        }
-
-
-
-    </script>
-
+    <script src="/js/upload.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,19 @@
+#progress-bar{
+    height: 50px;
+    width: 250px;
+}
+
+.bar{
+    height: 100%;
+    width: 0%;
+    background: lightblue;
+    display: flex;
+    align-items: center;
+    transition: width 0.25s;
+}
+
+.percent{
+    margin-top: 20px;
+    margin-left: 10px;
+    font-weight: bold;
+}
