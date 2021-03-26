@@ -4,31 +4,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <title>Synced-up</title>
 </head>
+
+<style>
+
+    #progress-bar{
+        height: 50px;
+        width: 250px;
+    }
+
+    .bar{
+        height: 100%;
+        width: 25%;
+        background: lightblue;
+        display: flex;
+        align-items: center;
+        transition: width 0.25s;
+    }
+
+    .percent{
+        margin-top: 20px;
+        margin-left: 10px;
+        font-weight: bold;
+    }
+
+
+
+
+
+
+
+</style>
+
 <body>
     <a href="/custom">Custom</a>
     <a href="/youtube">youtube</a>
 
 
-  <form action="/" enctype="multipart/form-data" method="POST" >
+  <form class="form" id="uploadForm"   action="/" enctype="multipart/form-data" method="POST" >
         
         <div class="input-group mb-3" >
-        <input type="file" name="video" class="form-control" id="inputGroupFile02" required>
+        <input type="file" name="video" class="form-control" id="inputGroupFile02" onchange="uploadFile()" required>
         <input type="submit" class="input-group-text" value="Upload"></input>
         </div>
 
     </form>
 
+    <div class="progress" id="progress-bar">
+        <div class="bar"></div >
+        <span class="percent">0%</span >
+    </div>
+
     
     <script>
-
-        // const file = document.getElementById('inputGroupFile02')
-        
-        // file.onchange = function(){
-        //     const name = this.value.replace(/.*[\/\\]/, '')
-        //     console.log(name)
-        // }
 
     </script>
 
