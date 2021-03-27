@@ -1,5 +1,6 @@
 .container{
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
     background: cornsilk;
@@ -13,8 +14,8 @@
 }
 .c-video{
     position: relative;
-    width: 80%;
-    max-width: 800px;
+    width: 50%;
+    max-width: 700px;
     overflow: hidden;
 }
 .controls{
@@ -80,4 +81,13 @@
     position: absolute;
     top: 50%;
     height: 100px;
+}
+
+#videoList{
+    position: absolute;
+    top: 10%;
+    right: 0;
+    width: 20%;
+    background: lightblue;
+    float: right;
 }

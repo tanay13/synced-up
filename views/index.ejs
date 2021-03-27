@@ -22,6 +22,18 @@
             </div>
         </div>
         <button id="sync">SYNC</button>
+
+        <div id="videoList">
+        
+
+            <% for (var i = 0; i < foundvideo.length; i++) { %>
+                <li> <%= foundvideo[i].originalname %> </li>
+                <button onclick="playVideo('<%= foundvideo[i].url %>')">PLAY</button>
+            <% } %>
+        
+
+
+    </div>
     </div>
     <div id="notification"></div>
     <div id="container1">
@@ -37,17 +49,7 @@
 
     </div>
 
-    <div>
-        
 
-            <% for (var i = 0; i < foundvideo.length; i++) { %>
-                <li> <%= foundvideo[i].originalname %> </li>
-                <button onclick="playVideo('<%= foundvideo[i].url %>')">PLAY</button>
-            <% } %>
-        
-
-
-    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/script.js"></script>
     <script src="/js/message.js"></script>
