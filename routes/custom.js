@@ -25,9 +25,9 @@ module.exports = function(app,io,publicPath)
             })
         })
 
-        socket.on('videoChange',(file)=>{
+        socket.on('videoChange',(url)=>{
             io.emit('changeVideo',{
-                fileName : file.fileName
+                fileurl : url.fileUrl
             })
         })
     

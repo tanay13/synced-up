@@ -42,7 +42,7 @@
 
             <% for (var i = 0; i < foundvideo.length; i++) { %>
                 <li> <%= foundvideo[i].originalname %> </li>
-                <button onclick="playVideo('<%= foundvideo[i] %>')">PLAY</button>
+                <button onclick="playVideo('<%= foundvideo[i].url %>')">PLAY</button>
             <% } %>
         
 

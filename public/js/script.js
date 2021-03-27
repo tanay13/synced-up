@@ -9,15 +9,15 @@ var btn = document.getElementById("play");
 let socket = io();
 
 
-function playVideo(fileName)
+function playVideo(url)
 {
     socket.emit('videoChange',{
-        fileName: fileName
+        fileUrl: url
     })
 }
 
-socket.on('changeVideo',(file)=>{
-    document.getElementById('videoC').src = "uploads/"+file.fileName;
+socket.on('changeVideo',(url)=>{
+    document.getElementById('videoC').src = url.fileurl;
 })
 
 
@@ -118,3 +118,5 @@ video.addEventListener('timeupdate', function(){
 //     var juicePos  = position / video.duration ;
 //     juice.style.width = juicePos*100 + "%";
 // })
+
+

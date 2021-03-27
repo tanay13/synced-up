@@ -5,7 +5,6 @@ var Schema = mongoose.Schema;
 
 var video = new Schema({
   url: String,
-  filename: String,
   size: Number,
   originalname : String
 

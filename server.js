@@ -55,18 +55,20 @@ app.post('/',async (req, res)=>{
           public_id:file.name
 
         },
-        function(error, result) {console.log(result, error)});
-        console.log(file)
+        async(error, result) => {
+         
+            const video = new Video();
+            video.originalname = result.public_id;
+            video.size = result.bytes;
+            video.url = result.url;
+            await video.save();
+            console.log("Saved")
+                  
+        
+        });
+        // console.log(file)
     })
-    .on('field', function(name, field) {
-        console.log('Got a field:', name);
-    })
-    .on('error', function(err) {
-        next(err);
-    })
-    .on('end', function() {
-        res.end();
-    });
+    
 
   // form.parse(req, function(err, fields, files) {
   //   if (err) {
@@ -80,12 +82,7 @@ app.post('/',async (req, res)=>{
   // })
 
 
-  // const video = new Video();
-  // video.originalname = req.file.originalname;
-  // video.size = req.file.size;
-  // video.url = req.file.path;
-  // video.filename = req.file.filename;
-  // await video.save();
+
 
 });
 
