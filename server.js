@@ -46,15 +46,17 @@ app.get('/',(req,res)=>{
     
 })
 
-app.post('/',upload.single('video'),async (req, res)=>{
+app.post('/',async (req, res)=>{
   
   new formidable.IncomingForm().parse(req)
     .on('file', function(name, file) {
         cloudinary.uploader.upload(file.path, 
         { resource_type: "video", 
-          use_filename: true
+          public_id:file.name
+
         },
         function(error, result) {console.log(result, error)});
+        console.log(file)
     })
     .on('field', function(name, field) {
         console.log('Got a field:', name);

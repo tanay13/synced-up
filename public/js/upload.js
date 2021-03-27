@@ -2,6 +2,7 @@ const upload = document.getElementById('uploadForm')
 const inpFile = document.getElementById('inputGroupFile02')
 const bar = document.querySelector('#progress-bar > .bar')
 const percent = bar.querySelector('.percent')
+const fileName = document.getElementById('fileName')
 
 upload.addEventListener('submit',uploadFile)
 
@@ -19,6 +20,8 @@ function uploadFile(e){
 
 
     })
+
+    fileName.value = inpFile.value;
 
     // no need of setting content-type to multipart/form-data.
     xhr.send(new FormData(upload))
