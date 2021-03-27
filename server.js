@@ -8,6 +8,7 @@ const http = require("http");
 const path = require("path");
 const socketIO = require("socket.io");
 const fs = require("fs");
+const formidable = require('formidable')
 const app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
@@ -16,7 +17,7 @@ const Video = require('./models/Video')
 //multer is a middleware used to parse multipart/form-data
 const multer = require('multer') 
 
-const {storage} = require('./cloudinary')
+const {storage,cloudinary} = require('./cloudinary')
 
 
 const upload = multer({storage});
@@ -45,16 +46,44 @@ app.get('/',(req,res)=>{
     
 })
 
-app.post('/', upload.single('video') ,async (req, res)=>{
+app.post('/',upload.single('video'),async (req, res)=>{
   
-  const video = new Video();
-  video.originalname = req.file.originalname;
-  video.size = req.file.size;
-  video.url = req.file.path;
-  video.filename = req.file.filename;
-  await video.save();
+  new formidable.IncomingForm().parse(req)
+    .on('file', function(name, file) {
+        cloudinary.uploader.upload(file.path, 
+        { resource_type: "video", 
+          use_filename: true
+        },
+        function(error, result) {console.log(result, error)});
+    })
+    .on('field', function(name, field) {
+        console.log('Got a field:', name);
+    })
+    .on('error', function(err) {
+        next(err);
+    })
+    .on('end', function() {
+        res.end();
+    });
 
-  res.redirect('/');
+  // form.parse(req, function(err, fields, files) {
+  //   if (err) {
+
+  //     // Check for and handle any errors here.
+
+  //     console.error(err.message);
+  //     return;
+  //   }
+  //   console.log(files)
+  // })
+
+
+  // const video = new Video();
+  // video.originalname = req.file.originalname;
+  // video.size = req.file.size;
+  // video.url = req.file.path;
+  // video.filename = req.file.filename;
+  // await video.save();
 
 });
 

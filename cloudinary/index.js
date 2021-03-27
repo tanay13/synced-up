@@ -7,11 +7,14 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECRET
 });
 
+
+    
+
 const storage = new CloudinaryStorage({
     cloudinary,
     params:{
         folder: 'Synced-up',
-        allowedFormats: ['PNG','MOV','MP4','AVI','MKV']
+        allowedFormats: ['mov','mp4','avi','mkv']
     }
     
 });
