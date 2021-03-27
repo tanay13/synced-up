@@ -44,7 +44,8 @@ function onYouTubeIframeAPIReady() {
     width: '640',
     videoId: 'M7lc1UVf-VE' ,
     playerVars : {
-        controls : 0
+        controls : 0,
+        autoplay: 0
     },
     events: {
     // 'onReady': onPlayerReady,
