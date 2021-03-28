@@ -48,7 +48,7 @@ function onYouTubeIframeAPIReady() {
         autoplay: 0
     },
     events: {
-    // 'onReady': onPlayerReady,
+      'onReady': onPlayerReady,
     // 'onStateChange': onPlayerStateChange
     }
   });
