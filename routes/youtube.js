@@ -21,7 +21,7 @@ module.exports = function(app,io)
         })
 
         socket.on('yevent',(e)=>{
-            socket.broadcast.emit('change',{
+            io.emit('change',{
                 videoState : e.event
             })
         })

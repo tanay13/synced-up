@@ -49,15 +49,28 @@ function onYouTubeIframeAPIReady() {
     },
     events: {
       'onReady': onPlayerReady,
-    // 'onStateChange': onPlayerStateChange
+      'onStateChange': onPlayerStateChange
     }
   });
 }
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-event.target.playVideo();
+    console.log("LOADED")
+    //event.target.playVideo();
+
 }
+
+// var done = false;
+function onPlayerStateChange(event) {
+    console.log("LOADDED");
+    console.log(event.data)
+//   if (event.data == YT.PlayerState.PLAYING && !done) {
+//     setTimeout(stopVideo, 6000);
+//     done = true;
+  //}
+}
+
 function stopVideo() {
     player.stopVideo();
 }
@@ -88,18 +101,18 @@ btn.addEventListener('click',()=>{
     if(done){
         player.pauseVideo()
         state.innerHTML = "PLAY"
-        socket.emit('yevent',{
-            event : "pause"  
-        })
-        done = false
+        // socket.emit('yevent',{
+        //     event : "pause"  
+        // })
+         done = false
     }
     else{
         player.playVideo()
         state.innerHTML = "PAUSE"
-        socket.emit('yevent',{
-            event : "play"  
-        })
-        done = true
+        // socket.emit('yevent',{
+        //     event : "play"  
+        // })
+         done = true
     }
 })
 
