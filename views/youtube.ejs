@@ -1,24 +1,24 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/youtube.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/youtube.css" />
     <title>Synced-up</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <form id="search-form">
-        <input type="text" id="link" placeholder="Youtube Link">
-        <button type="submit" id="btn">Search</button>
+      <input type="text" id="link" placeholder="Youtube Link" />
+      <button type="submit" id="btn">Search</button>
     </form>
 
     <div id="player"></div>
-    <button id="yt"><span id="state">PLAY</span></button>
+    <button id="yt">
+      <span id="state" onclick="Yplay()">PLAY</span>
+    </button>
     <button id="sync">SYNC</button>
-
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/youtube.js"></script>
-</body>
+  </body>
 </html>

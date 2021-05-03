@@ -1,129 +1,107 @@
-const search = document.getElementById('link')
-const subBtn = document.getElementById('btn')
-const sync = document.getElementById('sync')
-var btn = document.getElementById('yt')
-var state = document.getElementById('state')
-
+const search = document.getElementById('link');
+const subBtn = document.getElementById('btn');
+const sync = document.getElementById('sync');
+var btn = document.getElementById('yt');
+var btnState = document.getElementById('state');
 
 let socket = io();
-var player
-var linkID
+var player;
+var linkID;
 
-
-subBtn.addEventListener('click',(e)=>{
-    e.preventDefault()
-    var url = search.value;
-    var linkID = url.slice(17)
-    player.loadVideoById(linkID);
-    socket.emit('vchange',{
-        linkID:linkID
-    })
-    search.value = " ";
-})
-
+subBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  var url = search.value;
+  var linkID = url.slice(17);
+  player.loadVideoById(linkID);
+  socket.emit('vchange', {
+    linkID: linkID,
+  });
+  search.value = ' ';
+});
 
 // 2. This code loads the IFrame Player API code asynchronously.
 var tag = document.createElement('script');
 
-tag.src = "https://www.youtube.com/iframe_api";
+tag.src = 'https://www.youtube.com/iframe_api';
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-
-
 //listening to video change
-socket.on('videoChange',(e)=>{
-    console.log("event caught")
-    player.loadVideoById(e.videoId);
-})
-
+socket.on('videoChange', (e) => {
+  console.log('event caught');
+  player.loadVideoById(e.videoId);
+});
 
 function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
+  player = new YT.Player('player', {
     height: '390',
     width: '640',
-    videoId: 'M7lc1UVf-VE' ,
-    playerVars : {
-        controls : 0,
-        autoplay: 0
+    videoId: 'M7lc1UVf-VE',
+    playerVars: {
+      controls: 0,
+      autoplay: 0,
     },
     events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
-    }
+      onReady: onPlayerReady,
+      onStateChange: onPlayerStateChange,
+    },
   });
 }
 
+var VideoState;
+
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-    console.log("LOADED")
-    //event.target.playVideo();
-
+  console.log('LOADED');
+  //event.target.playVideo();
 }
-
-// var done = false;
+var playerStatus = -1;
+// // var done = false;
 function onPlayerStateChange(event) {
-    console.log("LOADDED");
-    console.log(event.data)
-//   if (event.data == YT.PlayerState.PLAYING && !done) {
-//     setTimeout(stopVideo, 6000);
-//     done = true;
-  //}
+  playerStatus = event.data;
+  switch (playerStatus) {
+    case 1:
+      socket.emit('play other');
+      break;
+    case 2:
+      socket.emit('pause other');
+
+      break;
+  }
 }
 
-function stopVideo() {
-    player.stopVideo();
+function Yplay() {
+  if (playerStatus == -1 || playerStatus == 2) {
+    player.playVideo();
+    btnState.innerHTML = 'PAUSE';
+  } else {
+    player.pauseVideo();
+    btnState.innerHTML = 'PLAY';
+  }
 }
 
+socket.on('just play', () => {
+  if (playerStatus == -1 || playerStatus == 2) {
+    player.playVideo();
+    btnState.innerHTML = 'PAUSE';
+  }
+});
 
-done = false;
+socket.on('just pause', () => {
+  player.pauseVideo();
+  btnState.innerHTML = 'PLAY';
+});
 
-var dur = 0
-
-socket.on('change',(event)=>{
-    if(event.videoState === 'play')
-    {
-        state.innerHTML = "PAUSE"
-        player.playVideo()
-        done = true
-    }
-    else{
-        state.innerHTML = "PLAY"
-        player.pauseVideo()
-        done = false
-    }
-    
-})
-
-
-
-btn.addEventListener('click',()=>{
-    if(done){
-        player.pauseVideo()
-        state.innerHTML = "PLAY"
-        // socket.emit('yevent',{
-        //     event : "pause"  
-        // })
-         done = false
-    }
-    else{
-        player.playVideo()
-        state.innerHTML = "PAUSE"
-        // socket.emit('yevent',{
-        //     event : "play"  
-        // })
-         done = true
-    }
-})
+var dur = 0;
 
 //event for clicking on sync button
-sync.addEventListener('click',()=>{
-    socket.emit('sync',{
-        videoDur:player.getDuration()
-    })
-})
+sync.addEventListener('click', () => {
+  socket.emit('sync', {
+    videoDur: player.getDuration(),
+  });
+});
 
 //listening to time event from server side
-socket.on('time',(event)=>{
-    player.seekTo(event.time,false)
-})
+socket.on('time', (event) => {
+  player.seekTo(event.time, false);
+});
