@@ -11,7 +11,7 @@ function uploadFile(e) {
 
   const xhr = new XMLHttpRequest();
 
-  xhr.open('POST', '/landing');
+  xhr.open('POST', '/landing/' + window.location.pathname.substring(9));
   xhr.upload.addEventListener('progress', (e) => {
     const percent_upload = e.lengthComputable ? (e.loaded / e.total) * 100 : 0;
 
