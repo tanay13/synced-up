@@ -59,6 +59,7 @@ var playerStatus = -1;
 // // var done = false;
 function onPlayerStateChange(event) {
   playerStatus = event.data;
+  console.log(playerStatus);
   switch (playerStatus) {
     case 1:
       socket.emit('play other');

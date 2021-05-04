@@ -1,30 +1,26 @@
-const upload = document.getElementById('uploadForm')
-const inpFile = document.getElementById('inputGroupFile02')
-const bar = document.querySelector('#progress-bar > .bar')
-const percent = bar.querySelector('.percent')
-const fileName = document.getElementById('fileName')
+const upload = document.getElementById('uploadForm');
+const inpFile = document.getElementById('inputGroupFile02');
+const bar = document.querySelector('#progress-bar > .bar');
+const percent = bar.querySelector('.percent');
+const fileName = document.getElementById('fileName');
 
-upload.addEventListener('submit',uploadFile)
+upload.addEventListener('submit', uploadFile);
 
-function uploadFile(e){
-    e.preventDefault();
+function uploadFile(e) {
+  e.preventDefault();
 
-    const xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
 
-    xhr.open('POST',"/");
-    xhr.upload.addEventListener('progress',e=>{
-      const percent_upload = e.lengthComputable?(e.loaded/e.total)*100 : 0;
-      
-      bar.style.width = percent_upload.toFixed(2)+"%";
-      percent.textContent = percent_upload.toFixed(2)+"%";
+  xhr.open('POST', '/landing');
+  xhr.upload.addEventListener('progress', (e) => {
+    const percent_upload = e.lengthComputable ? (e.loaded / e.total) * 100 : 0;
 
+    bar.style.width = percent_upload.toFixed(2) + '%';
+    percent.textContent = percent_upload.toFixed(2) + '%';
+  });
 
-    })
+  fileName.value = inpFile.value;
 
-    fileName.value = inpFile.value;
-
-    // no need of setting content-type to multipart/form-data.
-    xhr.send(new FormData(upload))
-
+  // no need of setting content-type to multipart/form-data.
+  xhr.send(new FormData(upload));
 }
-

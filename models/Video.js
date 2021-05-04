@@ -6,10 +6,15 @@ var Schema = mongoose.Schema;
 var video = new Schema({
   url: String,
   size: Number,
-  originalname : String
-
+  originalname: String,
+  createdIn: {
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Room',
+    },
+  },
 });
 
-var Video = mongoose.model('Video', video );
+var Video = mongoose.model('Video', video);
 
-module.exports = Video
+module.exports = Video;

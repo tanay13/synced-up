@@ -5,7 +5,6 @@ module.exports = function (app, io, publicPath) {
   app.get('/custom', async (req, res) => {
     Video.find({}, function (err, foundvideo) {
       if (err) return console.err(err);
-      console.log(foundvideo);
       res.render('index', { foundvideo });
     });
   });

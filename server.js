@@ -1,74 +1,82 @@
-if(process.env.NODE_ENV != "production")
-{
+if (process.env.NODE_ENV != 'production') {
   require('dotenv').config();
 }
 
-const express = require('express')
-const http = require("http");
-const path = require("path");
-const socketIO = require("socket.io");
-const fs = require("fs");
-const formidable = require('formidable')
+const express = require('express');
+const http = require('http');
+const path = require('path');
+const socketIO = require('socket.io');
+const fs = require('fs');
+const formidable = require('formidable');
 const app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
-const Video = require('./models/Video')
+const Video = require('./models/Video');
+var bodyParser = require('body-parser');
+const Room = require('./models/Room');
 
 //multer is a middleware used to parse multipart/form-data
-const multer = require('multer') 
+const multer = require('multer');
 
-const {storage,cloudinary} = require('./cloudinary')
+const { storage, cloudinary } = require('./cloudinary');
 
+const upload = multer({ storage });
 
-const upload = multer({storage});
+require('./mongooseConnection');
 
+const port = process.env.PORT || 3000;
 
-require("./mongooseConnection")
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
 
-const port = process.env.PORT || 3000
-
-
-app.set("view engine","ejs");
+app.set('view engine', 'ejs');
 //path.join() method joins the specified path segments into one path
-const publicPath = path.join(__dirname,"/public")
+const publicPath = path.join(__dirname, '/public');
 //To serve static files such as images, CSS files, and JavaScript files
 app.use(express.static(publicPath));
 
-const youtubeRoute = require('./routes/youtube')(app,io);
-const customRoute = require('./routes/custom')(app,io,publicPath);
+const youtubeRoute = require('./routes/youtube')(app, io);
+const customRoute = require('./routes/custom')(app, io, publicPath);
 
-app.set("view engine","ejs");
+app.set('view engine', 'ejs');
 
-app.use('/youtube',youtubeRoute)
-app.use('/custom',customRoute)
-app.get('/',(req,res)=>{
-    res.render("landing")
-    
-})
+app.use('/youtube', youtubeRoute);
+app.use('/custom', customRoute);
 
-app.post('/',async (req, res)=>{
-  
-  new formidable.IncomingForm().parse(req)
-    .on('file', function(name, file) {
-        cloudinary.uploader.upload(file.path, 
-        { resource_type: "video", 
-          public_id:file.name
+app.get('/', (req, res) => {
+  res.render('details');
+});
 
-        },
-        async(error, result) => {
-         
-            const video = new Video();
-            video.originalname = result.public_id;
-            video.size = result.bytes;
-            video.url = result.url;
-            await video.save();
-            console.log("Saved")
-                  
-        
-        });
-        // console.log(file)
-    })
-    
+app.post('/', async (req, res) => {
+  var name = req.body.name;
+  const room = new Room();
+  room.name = name;
+  await room.save();
+  console.log('room saved');
+  res.redirect('/landing/' + room._id);
+});
+
+app.get('/landing/:roomid', (req, res) => {
+  res.render('landing');
+});
+
+app.post('/landing/:roomid', async (req, res) => {
+  new formidable.IncomingForm().parse(req).on('file', function (name, file) {
+    cloudinary.uploader.upload(
+      file.path,
+      { resource_type: 'video', public_id: file.name },
+      async (error, result) => {
+        const video = new Video();
+        video.originalname = result.public_id;
+        video.size = result.bytes;
+        video.url = result.url;
+        video.createdIn = { id: req.params.roomid };
+        await video.save();
+        console.log('Saved');
+      }
+    );
+    // console.log(file)
+  });
 
   // form.parse(req, function(err, fields, files) {
   //   if (err) {
@@ -80,65 +88,53 @@ app.post('/',async (req, res)=>{
   //   }
   //   console.log(files)
   // })
-
-
-
-
 });
 
+app.get('/local', (req, res) => {
+  res.render('localVideo');
+});
 
+app.get('/watch', (req, res) => {
+  res.render('watch');
+});
 
+app.get('/video', function (req, res) {
+  // Ensure there is a range given for the video
+  const range = req.headers.range;
+  if (!range) {
+    res.status(400).send('Requires Range header');
+  }
 
-app.get('/local',(req,res)=>{
-  res.render('localVideo')
-})
+  // get video stats (about 61MB)
+  const videoPath =
+    req.videoPath || 'C:/Users/TANAY RAJ/Downloads/DoorBotV!.mp4';
+  const videoSize = fs.statSync(videoPath).size;
 
-app.get('/watch',(req,res)=>{
-  res.render('watch')
-})
+  // Parse Range
+  // Example: "bytes=32324-"
+  const CHUNK_SIZE = 10 ** 6; // 1MB
+  const start = Number(range.replace(/\D/g, ''));
+  const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
 
+  // Create headers
+  const contentLength = end - start + 1;
+  const headers = {
+    'Content-Range': `bytes ${start}-${end}/${videoSize}`,
+    'Accept-Ranges': 'bytes',
+    'Content-Length': contentLength,
+    'Content-Type': 'video/mp4',
+  };
 
+  // HTTP Status 206 for Partial Content
+  res.writeHead(206, headers);
 
-app.get("/video", function (req, res) {
-    // Ensure there is a range given for the video
-    const range = req.headers.range;
-    if (!range) {
-      res.status(400).send("Requires Range header");
-    }
-  
-    // get video stats (about 61MB)
-    const videoPath = req.videoPath||"C:/Users/TANAY RAJ/Downloads/DoorBotV!.mp4";
-    const videoSize = fs.statSync(videoPath).size;
-  
-    // Parse Range
-    // Example: "bytes=32324-"
-    const CHUNK_SIZE = 10 ** 6; // 1MB
-    const start = Number(range.replace(/\D/g, ""));
-    const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
-  
-    // Create headers
-    const contentLength = end - start + 1;
-    const headers = {
-      "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-      "Accept-Ranges": "bytes",
-      "Content-Length": contentLength,
-      "Content-Type": "video/mp4",
-    };
-    
-    // HTTP Status 206 for Partial Content
-    res.writeHead(206, headers);
-    
+  // create video read stream for this particular chunk
+  const videoStream = fs.createReadStream(videoPath, { start, end });
 
-    // create video read stream for this particular chunk
-    const videoStream = fs.createReadStream(videoPath, { start, end });
-  
-    // Stream the video chunk to the client
-    videoStream.pipe(res);
-  });
+  // Stream the video chunk to the client
+  videoStream.pipe(res);
+});
 
-
-
-
-server.listen(port,()=>{
-    console.log("Server running");
-})
+server.listen(port, () => {
+  console.log('Server running');
+});
