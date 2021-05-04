@@ -6,7 +6,7 @@
 
 module.exports = function (app, io) {
   const router = require('express').Router();
-  app.get('/youtube', (req, res) => {
+  app.get('/youtube/:roomid', (req, res) => {
     res.render('youtube');
   });
 

@@ -2,7 +2,7 @@ module.exports = function (app, io, publicPath) {
   const router = require('express').Router();
   const Video = require('../models/Video');
 
-  app.get('/custom', async (req, res) => {
+  app.get('/custom/:roomid', async (req, res) => {
     Video.find({}, function (err, foundvideo) {
       if (err) return console.err(err);
       res.render('index', { foundvideo });

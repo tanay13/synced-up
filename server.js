@@ -57,7 +57,8 @@ app.post('/', async (req, res) => {
 });
 
 app.get('/landing/:roomid', (req, res) => {
-  res.render('landing');
+  var roomId = req.params.roomid;
+  res.render('landing', { roomId });
 });
 
 app.post('/landing/:roomid', async (req, res) => {
