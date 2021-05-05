@@ -8,10 +8,8 @@ var video = new Schema({
   size: Number,
   originalname: String,
   createdIn: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Room',
-    },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Room',
   },
 });
 

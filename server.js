@@ -71,9 +71,8 @@ app.post('/landing/:roomid', async (req, res) => {
         video.originalname = result.public_id;
         video.size = result.bytes;
         video.url = result.url;
-        video.createdIn = { id: req.params.roomid };
+        video.createdIn = req.params.roomid;
         await video.save();
-        console.log('Saved');
       }
     );
     // console.log(file)

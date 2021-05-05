@@ -3,7 +3,7 @@ module.exports = function (app, io, publicPath) {
   const Video = require('../models/Video');
 
   app.get('/custom/:roomid', async (req, res) => {
-    Video.find({}, function (err, foundvideo) {
+    Video.find({ createdIn: req.params.roomid }, function (err, foundvideo) {
       if (err) return console.err(err);
       res.render('index', { foundvideo });
     });
