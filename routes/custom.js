@@ -11,7 +11,6 @@ module.exports = function (app, io, publicPath) {
 
   io.on('connection', (socket) => {
     console.log('Connected successfully');
-
     socket.on('toggle', (classname) => {
       io.emit('change', {
         className: classname.nameofclass,
