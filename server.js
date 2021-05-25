@@ -56,12 +56,17 @@ app.get('/', (req, res) => {
 
 app.post('/', async (req, res) => {
   var name = req.body.name;
-  const room = new Room();
-  room.name = name;
-  await room.save();
-  console.log('room saved');
-  l;
-  res.redirect('/landing/' + room._id);
+  Room.findOne({ name: name }, async (err, foundRoom) => {
+    if (!foundRoom) {
+      const room = new Room();
+      room.name = req.body.name;
+      await room.save();
+      console.log('room saved');
+      res.redirect('/landing/' + room._id);
+    } else {
+      res.redirect('/landing/' + foundRoom._id);
+    }
+  });
 });
 
 app.get('/landing/:roomid', (req, res) => {
