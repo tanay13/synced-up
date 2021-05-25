@@ -3,6 +3,7 @@ const inpFile = document.getElementById('inputGroupFile02');
 const bar = document.querySelector('#progress-bar > .bar');
 const percent = bar.querySelector('.percent');
 const fileName = document.getElementById('fileName');
+let socket = io();
 
 upload.addEventListener('submit', uploadFile);
 

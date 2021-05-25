@@ -11,41 +11,45 @@ module.exports = function (app, io, publicPath) {
 
   io.on('connection', (socket) => {
     console.log('Connected successfully');
-    socket.on('toggle', (classname) => {
-      io.emit('change', {
-        className: classname.nameofclass,
-        user: classname.user,
-      });
-    });
+    socket.on('join room', (room) => {
+      socket.join(room.roomId);
 
-    socket.on('videoChange', (url) => {
-      io.emit('changeVideo', {
-        fileurl: url.fileUrl,
+      socket.on('toggle', (classname) => {
+        io.to(room.roomId).emit('change', {
+          className: classname.nameofclass,
+          user: classname.user,
+        });
       });
-    });
 
-    socket.on('yevent', (e) => {
-      io.emit('change', {
-        event: e,
+      socket.on('videoChange', (url) => {
+        io.to(room.roomId).emit('changeVideo', {
+          fileurl: url.fileUrl,
+        });
       });
-    });
-    socket.on('sync', (time) => {
-      io.emit('synctime', {
-        syncTime: time.currTime,
-      });
-    });
 
-    socket.on('newUser', (user) => {
-      socket.broadcast.emit('newMsg', {
-        from: 'Admin',
-        text: user.user + ' joined',
+      socket.on('yevent', (e) => {
+        io.to(room.roomId).emit('change', {
+          event: e,
+        });
       });
-    });
+      socket.on('sync', (time) => {
+        io.to(room.roomId).emit('synctime', {
+          syncTime: time.currTime,
+        });
+      });
 
-    socket.on('createmsg', (msg) => {
-      io.emit('newMsg', {
-        from: msg.from,
-        text: msg.text,
+      socket.on('newUser', (user) => {
+        socket.broadcast.to(room.roomId).emit('newMsg', {
+          from: 'Admin',
+          text: user.user + ' joined',
+        });
+      });
+
+      socket.on('createmsg', (msg) => {
+        io.to(room.roomId).emit('newMsg', {
+          from: msg.from,
+          text: msg.text,
+        });
       });
     });
   });

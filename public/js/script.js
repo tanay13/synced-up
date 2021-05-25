@@ -14,12 +14,18 @@ function playVideo(url) {
   });
 }
 
-socket.on('changeVideo', (url) => {
-  document.getElementById('videoC').src = url.fileurl;
-});
+var currUrl = window.location.href;
+var roomId = currUrl.split('/')[4];
 
 socket.on('connect', () => {
   console.log('CONNECTED!!!!!');
+  socket.emit('join room', {
+    roomId: roomId,
+  });
+});
+
+socket.on('changeVideo', (url) => {
+  document.getElementById('videoC').src = url.fileurl;
 });
 
 socket.on('change', (param) => {

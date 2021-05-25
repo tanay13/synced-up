@@ -91,6 +91,10 @@ app.post('/landing/:roomid', async (req, res) => {
   });
 });
 
+io.on('connection', (socket) => {
+  console.log('success');
+});
+
 app.get('/local', (req, res) => {
   res.render('localVideo');
 });
