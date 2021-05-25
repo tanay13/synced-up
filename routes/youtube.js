@@ -11,16 +11,19 @@ module.exports = function (app, io) {
   });
 
   io.on('connection', (socket) => {
-    socket.on('play other', (e) => {
-      socket.broadcast.emit('just play');
-    });
-    socket.on('pause other', (e) => {
-      socket.broadcast.emit('just pause');
-    });
+    socket.on('join room', (room) => {
+      socket.join(room.roomId);
+      socket.on('play other', (e) => {
+        socket.broadcast.to(room.roomId).emit('just play');
+      });
+      socket.on('pause other', (e) => {
+        socket.broadcast.to(room.roomId).emit('just pause');
+      });
 
-    socket.on('sync', (event) => {
-      io.emit('time', {
-        time: event.videoDur,
+      socket.on('sync', (event) => {
+        io.to(room.roomId).emit('time', {
+          time: event.videoDur,
+        });
       });
     });
   });

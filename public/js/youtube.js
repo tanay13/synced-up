@@ -8,6 +8,16 @@ let socket = io();
 var player;
 var linkID;
 
+var currUrl = window.location.href;
+var roomId = currUrl.split('/')[4];
+
+socket.on('connect', () => {
+  console.log('CONNECTED!!!!!');
+  socket.emit('join room', {
+    roomId: roomId,
+  });
+});
+
 subBtn.addEventListener('click', (e) => {
   e.preventDefault();
   var url = search.value;
