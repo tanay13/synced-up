@@ -1,93 +1,137 @@
-.container{
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    background: cornsilk;
-    height: 100vh;
+.container {
+  /* display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center; */
+
+  text-align: center;
+  background: rgba(17, 17, 16, 0.897);
+  height: 100vh;
 }
-.video{
-    width: 100%;
-}
-.c-video:hover .controls{
-    transform: translateY(0) ;
-}
-.c-video{
-    position: relative;
-    width: 50%;
-    max-width: 700px;
-    overflow: hidden;
-}
-.controls{
-    display: flex;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    flex-wrap: wrap;
-    background-color: rgba(0,0,0,0.7);
-    transform: translateY(100%) translateY(-5px);
-    transition: all 0.2s;
-}
-.buttons button{
-    background: none;
-    border: 0;
-    outline: 0;
-    cursor: pointer;
-}
-.buttons{
-    padding: 10px;
-}
-.buttons button:before{
-    content: "\f144";
-    font-family: "Font Awesome 5 Free";
-    width: 30px;
-    height: 30px;
-    display: inline-block;
-    font-size: 28px;
-    color: #fff;
-    -webkit-font-smoothing: antialiased;
-}
-.buttons button.play:before{
-    content: "\f144";
+#container1 {
+  border-radius: 4px;
+  position: relative;
+  float: left;
+  width: 25%;
+  text-align: left;
+  margin-right: 50px;
+  height: 90%;
+
+  background-color: white;
 }
 
-.buttons button.pause:before{
-    content: "\f28b";
+#msg-form {
+  padding: 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
-.orange-bar{
-    height: 10px;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: black;
-    cursor: pointer;
+#msg-form > input {
+  position: absolute;
+  left: 0;
+  height: 40px;
+  width: 80%;
 }
-.orange-juice{
-    height: 10px;
-    background-color: orangered;
-    
 
+#msg-form > button {
+  position: absolute;
+  left: 80%;
+  height: 40px;
+  font-size: 1vw;
+  width: 20%;
+}
+
+.video {
+  width: 100%;
+}
+.c-video:hover .controls {
+  transform: translateY(0);
+}
+.c-video {
+  float: left;
+  position: relative;
+  width: 50%;
+  max-width: 700px;
+  overflow: hidden;
 }
 
 #notification {
-    position: absolute;
-    top: 0;
-    height: 50%;
-    width: 200px;
-    background-color: crimson;
+  float: right;
+  height: 50%;
+  width: 20%;
+  background-color: crimson;
 }
 
-#container1{
-    position: absolute;
-    top: 50%;
-    height: 100px;
+.controls {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  flex-wrap: wrap;
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: translateY(100%) translateY(-5px);
+  transition: all 0.2s;
+}
+.buttons button {
+  background: none;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+}
+.buttons {
+  padding: 10px;
+}
+.buttons button:before {
+  content: '\f144';
+  font-family: 'Font Awesome 5 Free';
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  font-size: 28px;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+.buttons button.play:before {
+  content: '\f144';
 }
 
-#videoList{
-    position: absolute;
-    top: 10%;
-    right: 0;
-    width: 20%;
-    background: lightblue;
-    float: right;
+.buttons button.pause:before {
+  content: '\f28b';
+}
+.orange-bar {
+  height: 10px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: black;
+  cursor: pointer;
+}
+.orange-juice {
+  height: 10px;
+  background-color: orangered;
+}
+
+#videoList {
+  position: absolute;
+  top: 10%;
+  right: 0;
+  width: 20%;
+  background: lightblue;
+  float: right;
+}
+
+#sync {
+  position: absolute;
+  bottom: 0;
+  left: 100;
+  height: 50px;
+}
+
+.chat {
+  float: left;
+  margin-left: 0;
+}
+
+.chat > p {
+  margin-left: 0;
 }
