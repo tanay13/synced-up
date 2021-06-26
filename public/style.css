@@ -1,3 +1,15 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: url('/background3.jpg');
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .container {
   /* display: flex;
   position: relative;
@@ -5,7 +17,7 @@
   align-items: center; */
 
   text-align: center;
-  background: rgba(17, 17, 16, 0.897);
+  background: rgba(17, 17, 16, 0.527);
   height: 100vh;
 }
 #container1 {
@@ -17,7 +29,7 @@
   margin-right: 50px;
   height: 90%;
 
-  background-color: white;
+  background-color: #eeece694;
 }
 
 #msg-form {
@@ -58,8 +70,8 @@
 #notification {
   float: right;
   height: 50%;
-  width: 20%;
-  background-color: crimson;
+  width: 17%;
+  background-color: rgba(252, 248, 240, 0.301);
 }
 
 .controls {
