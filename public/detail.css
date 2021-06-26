@@ -1,0 +1,62 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+
+  background: url('/background.jpg');
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#logo {
+  font-size: 1.7rem;
+  color: rgb(192, 204, 226);
+  font-weight: 600;
+}
+
+#nav {
+  background-color: rgba(14, 11, 11, 0.281) !important;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(19, 18, 18, 0.486);
+  transition: 0.3s;
+  background-color: rgba(29, 29, 29, 0.363) !important;
+  width: 40%;
+  width: 40%;
+  height: 200px;
+  margin: auto;
+  margin-top: 20vh;
+  border-radius: 5px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.input {
+  width: 50%;
+  border-radius: 5px;
+  border-style: none;
+}
+
+form {
+  text-align: center;
+  color: white;
+}
+
+.name {
+  font-size: 1.4rem;
+}
+
+.submit {
+  margin-top: 10px;
+  font-weight: 600;
+  border-radius: 10px;
+  border-style: none;
+  color: white;
+  background-color: rgba(224, 161, 65, 0.87);
+}
