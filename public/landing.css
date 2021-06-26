@@ -1,19 +1,96 @@
-#progress-bar{
-    height: 50px;
-    width: 250px;
+#progress-bar {
+  height: 30px;
+  width: 250px;
 }
 
-.bar{
-    height: 100%;
-    width: 0%;
-    background: lightblue;
-    display: flex;
-    align-items: center;
-    transition: width 0.25s;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: url('/background1.jpg');
+
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.percent{
-    margin-top: 20px;
-    margin-left: 10px;
-    font-weight: bold;
+.bar {
+  height: 100%;
+  width: 0%;
+  background: lightblue;
+  display: flex;
+  align-items: center;
+  transition: width 0.25s;
+}
+
+.percent {
+  margin-top: 7px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+#logo {
+  font-size: 1.7rem;
+  color: rgb(229, 234, 243);
+  font-weight: 600;
+}
+
+#nav {
+  background-color: rgba(14, 11, 11, 0.281) !important;
+}
+
+.maincontainer {
+  width: 100%;
+  padding: 50px;
+  height: 89.4%;
+  background-color: rgba(14, 13, 13, 0.486);
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(19, 18, 18, 0.486);
+  transition: 0.3s;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: rgba(29, 29, 29, 0.363) !important;
+  width: 40%;
+  height: 300px;
+  margin: auto;
+  margin-top: 10vh;
+  border-radius: 5px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.linkcont {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+}
+
+.links {
+  width: 40%;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  padding: 6px;
+  margin: 10px;
+  font-size: 1.5rem;
+  background-color: rgba(240, 145, 56, 0.87);
+}
+
+.links:hover {
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+}
+
+.links:link {
+  text-decoration: none;
+}
+
+p {
+  color: white;
 }

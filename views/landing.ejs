@@ -1,46 +1,60 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/landing.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/landing.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
     <title>Synced-up</title>
-</head>
+  </head>
 
-<body>
+  <body>
+    <nav class="navbar navbar-light bg-light" id="nav">
+      <div class="container-fluid">
+        <a class="navbar-brand" id="logo" href="/"> Synced-up </a>
+      </div>
+    </nav>
 
-
-
-    <h1>WELCOME WELCOME WELCOME !!!!!</h1>
-    <h3>Developed by <a href="https://github.com/tanay13" target="_blank">Tanay Raj</a>  </h3>
-
-    <h4><a href="/custom/<%= roomId %>">Custom</a></h4>
-
-    <h4><a href="/youtube/<%= roomId %>">youtube</a></h4>
-    
-
-
-  <form class="form" id="uploadForm" >
-        
-        <div class="input-group mb-3" >
-        <input type="file" name="video" class="form-control" id="inputGroupFile02" required>
-        <input type="text" id="fileName">
-        <input type="submit" class="input-group-text" value="Upload"></input>
+    <div class="maincontainer">
+      <div class="card">
+        <form class="form" id="uploadForm">
+          <div class="input-group mb-3">
+            <input
+              type="file"
+              name="video"
+              class="form-control"
+              id="inputGroupFile02"
+              required
+            />
+            <input type="submit" class="input-group-text" value="Upload" />
+          </div>
+        </form>
+        <div class="progress" id="progress-bar">
+          <div class="bar">
+            <span class="percent">0%</span>
+          </div>
         </div>
+        <div class="linkcont">
+          <a class="links" href="/custom/<%= roomId %>">Custom</a>
 
-    </form>
-
-    <div class="progress" id="progress-bar">
-        <div class="bar">
-            <span class="percent">0%</span >
-
-        </div >
-        
+          <a class="links" href="/youtube/<%= roomId %>">youtube</a>
+        </div>
+        <p>
+          If selecting custom then upload the video if you don't have anything
+          saved
+        </p>
+      </div>
     </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/upload.js"></script>
-
-</body>
+  </body>
 </html>
