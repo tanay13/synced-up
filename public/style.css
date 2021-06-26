@@ -70,6 +70,7 @@ body {
 #notification {
   float: right;
   height: 50%;
+  border-radius: 5px;
   width: 17%;
   background-color: rgba(252, 248, 240, 0.301);
 }
@@ -124,11 +125,12 @@ body {
 }
 
 #videoList {
-  position: absolute;
-  top: 10%;
-  right: 0;
-  width: 20%;
-  background: lightblue;
+  float: right;
+  border-radius: 5px;
+  margin-top: 40px;
+  width: 17%;
+  height: 250px;
+  background: rgb(245, 245, 245);
   float: right;
 }
 
