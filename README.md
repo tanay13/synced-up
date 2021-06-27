@@ -38,13 +38,16 @@ Go to
 
 ```js
 https://localhost:300
+
 ```
+
+## Screen Shots
+
+<img width="500" alt="syncedup" src="https://user-images.githubusercontent.com/61361310/123556154-3a25d400-d7a7-11eb-8058-04db62f947c8.PNG">
 
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
 
 ## License
 
