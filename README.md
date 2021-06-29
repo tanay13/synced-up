@@ -1,4 +1,4 @@
-![SYCNED-UP (2)](https://user-images.githubusercontent.com/61361310/123813023-2fd41900-d912-11eb-996f-eb70a9699de7.png)
+![SYNCED-UP (1)](https://user-images.githubusercontent.com/61361310/123814571-6a8a8100-d913-11eb-8cf0-d7279881af4c.png)
 
 # Synced-Up
 
