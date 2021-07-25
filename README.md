@@ -37,7 +37,7 @@ npm run start
 Go to
 
 ```js
-https://localhost:300
+https://localhost:3000
 
 ```
 
